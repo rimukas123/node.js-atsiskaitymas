@@ -1,6 +1,6 @@
 import express from 'express';
 import Company from '../models/company.js';
-import CompanyProfile from '../models/companyProfile.js';
+
 
 const router = express.Router();
 

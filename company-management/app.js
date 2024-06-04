@@ -1,22 +1,33 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import companiesRouter from './routes/companies.js';
-import companyProfileRouter from './routes/companyProfile.js';
+import cors from "cors";
+
+
 
 dotenv.config();
 
+const { PORT, MONGO_URI } = process.env;
+
+mongoose
+  .connect(MONGO_URI, { dbName: "company-management" })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(() => console.log("Failed to connect"));
+
 const app = express();
-app.use(bodyParser.json());
 
-app.use('/companies', companiesRouter);
-app.use('/companyProfile', companyProfileRouter);
+app.use(cors());
+app.use(express.json());
+app.use(router)
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+app.listen(PORT, () => console.log(`App listening on PORT: $
+{PORT}`) )
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server Started on Port ${PORT}`));
+
+
+
+
+
+
+
+
